@@ -1,26 +1,57 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import Todos from './components/Todos'
+import { useState } from 'react'
+import PostTodo from './components/PostTodo'
+import { Todotype } from './components/types'
 
-function App() {
+
+const todoData = [
+  {
+    id: "1",
+    title: "todo title 1"
+  },
+  {
+    id: "2",
+    title: "todo title 2"
+  },
+  {
+    id: "3",
+    title: "todo title 3"
+  },
+  {
+    id: "4",
+    title: "todo title 4"
+  },
+  {
+    id: "5",
+    title: "todo title 5"
+  },
+  {
+    id: "6",
+    title: "todo title 6"
+  },
+]
+
+const App = () => {
+  const handledelete = (id: string) => {
+    const filterData = todos.filter(todo => todo.id !== id)
+    settodos(filterData)
+  }
+
+  const [todos, settodos] = useState(todoData)
+
+  const handleAddTodo = (newtodo: Todotype) =>{
+    settodos(prevState => [...prevState, newtodo])
+
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <PostTodo handleAddTodo={handleAddTodo}/>
+      <Todos todos={todos} handledelete={handledelete}/>
+
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
